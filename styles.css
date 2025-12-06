@@ -1,0 +1,380 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- AJUSTES NO HEADER (Para background-image) --- */
+/*
+  Corrigi a regra "header". A imagem "background-size: 100%" pode esticar
+  em telas grandes. O ideal é usar "cover" ou "contain", dependendo do efeito desejado.
+  "Cover" preenche a área sem esticar, cortando o que for necessário.
+*/
+header {
+    /* Corrigi o caminho da imagem de fundo se necessário (assumindo que ".." estava incorreto) */
+    background-image: url(./wheader-background.png); /* Exemplo de caminho correto */
+    background-size: cover; /* Ajusta a imagem para cobrir toda a área do header */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita a repetição */
+    /* Adicionar uma altura mínima pode ser necessário se o header estiver vazio */
+    min-height: 50px; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    /* AJUSTES NO BACKGROUND DO BODY: Use 'cover' para o fundo não se repetir e cobrir toda a tela */
+    background-image: url(./WEBP/BACKGROUND.webp);
+    background-size: cover; /* Garante que o fundo cubra toda a área */
+    background-attachment: fixed; /* Opcional: faz o fundo ser fixo enquanto a página rola */
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- HEADER / CABEÇALHO --- */
+.header {
+    background-color: #007bff; /* Azul primário */
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ 
+  
+}
+
+/* #imgdiv parece ser um contêiner para a navegação.
+  Adicionei 'align-items: center' para garantir o alinhamento vertical.
+*/
+#imgdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Garantir que os itens estejam alinhados verticalmente */
+}
+
+/* .nav não precisa de justify-content: center se for o contêiner principal */
+.nav {
+    display: flex;
+    justify-content: space-between; /* Melhor para manter logo em um lado e links no outro */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%; /* Garante que ocupe todo o espaço disponível do #imgdiv */
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffcc00; /* Amarelo de destaque */
+}
+
+.logo h1 {
+    font-size: 1.5em;
+    font-weight: 900;
+}
+
+#logo {
+    border-radius: 90px;
+    max-width: 60px; /* Limite o tamanho da logo para dispositivos grandes */
+    height: auto;
+}
+
+/* --- MAIN / CONTEÚDO PRINCIPAL --- */
+main {
+    padding: 20px 0;
+}
+
+/* SEÇÃO HERO/INÍCIO (Fiel ao Tamanho da Imagem) */
+.hero-section {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.hero-image-container {
+    width: 100%;
+    /* Use uma proporção (padding-bottom) para manter a imagem responsiva sem a necessidade de max-height que corta */
+    /* Exemplo para proporção 16:9 (altura é 56.25% da largura): 9/16 = 0.5625 * 100 */
+    /* padding-bottom: 56.25%; */ 
+    /* Se quiser manter seu max-height: */
+    max-height: 500px;
+    overflow: hidden;
+    position: relative; /* Necessário se for usar o truque do padding-bottom */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image-container img {
+    /* Ajuste para cobrir completamente, se estiver usando max-height/padding-bottom */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    /* position: absolute; /* Se usar o truque do padding-bottom */
+}
+
+/* SEÇÃO DE PRODUTOS */
+.products-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.products-section h2 {
+    color: #007bff;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.products-grid {
+    display: flex;
+    justify-content: center; /* Centraliza a grade */
+    gap: 20px;
+    flex-wrap: wrap; 
+}
+
+.product-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Ajuste a largura para ser mais resiliente. Use porcentagens mais baixas
+      para garantir espaço para o gap em dispositivos maiores.
+    */
+    width: calc(23% - 20px); /* 4 cards por linha em desktop (ajustado de 25% para 23% para garantir espaço para o gap) */
+    min-width: 200px; 
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.product-card h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-card p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+/* --- FOOTER / RODAPÉ --- */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 30px 0 10px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Melhor que space-around para alinhamento */
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    gap: 30px; /* Aumenta um pouco o gap */
+}
+
+.footer-contact, .footer-social {
+    /* Em vez de flex: 1, use flex-basis para controle melhor em telas médias */
+    flex-basis: 45%; 
+    min-width: 250px;
+}
+
+.footer-contact h3, .footer-social h3 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.footer-contact i {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.footer-social a {
+    font-size: 2em;
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
+    color: #ffcc00;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    font-size: 0.8em;
+    color: #bbb;
+}
+
+/* Carrossel e Product Card - Estilos mantidos, pois são específicos de um componente */
+.carousel {
+    position: relative;
+    width: 100%; 
+    height: 200px; 
+    overflow: hidden; 
+    border-radius: 8px; 
+}
+
+.carousel-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    opacity: 0; 
+    transition: opacity 1s ease-in-out; 
+    object-fit: cover; 
+}
+
+.carousel-slide.active {
+    opacity: 1; 
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* --- RESPONSIVIDADE OTIMIZADA --- */
+
+/* Tablet e Telas Médias (max-width: 992px) - Adicionado um ponto de quebra intermediário */
+@media (max-width: 992px) {
+    .product-card {
+        /* 3 cards por linha */
+        width: calc(33.333% - 20px); 
+    }
+}
+
+/* Mobile e Telas Pequenas (max-width: 768px) */
+@media (max-width: 768px) {
+    /*
+      MANTÉM O CABEÇALHO LADO A LADO:
+      1. Removemos 'flex-direction: column' de .nav.
+      2. Garantimos que .nav (ou #imgdiv) use 'space-between'
+         para separar o logo dos links.
+    */
+    
+    /* Alteração principal: .nav agora usa space-between em vez de column */
+    .nav {
+        /* flex-direction: column; <--- REMOVIDO/SUBSTITUÍDO */
+        justify-content: space-between; /* Garante que o logo e os links fiquem separados */
+        flex-wrap: wrap; /* Permite quebrar a linha se os links não couberem */
+        align-items: center;
+    }
+    
+    /* Novo ajuste para os links do menu: */
+    .nav-links {
+        margin-top: 0; /* Remove a margem superior desnecessária */
+        gap: 10px; /* Reduz o espaçamento entre os links para caberem */
+        flex-wrap: wrap; /* Garante que os links quebrem a linha se não couberem */
+        justify-content: flex-end; /* Alinha os links à direita */
+    }
+
+    /* O #imgdiv e .logo não precisam de grandes mudanças se .nav for o flex container */
+    #imgdiv {
+        flex-direction: row; /* Volta a ser row (padrão flex) */
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .logo {
+        /* Garante que o logo não ocupe muito espaço */
+        flex-shrink: 0;
+    }
+
+    /* O restante do código 768px (produtos e rodapé) permanece inalterado */
+    
+    /* Otimização da Grade de Produtos */
+    .products-grid {
+        justify-content: center;
+    }
+
+    .product-card {
+        width: calc(50% - 20px); /* 2 cards por linha */
+    }
+
+    /* Otimização do Rodapé */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .footer-contact, .footer-social {
+        flex-basis: 100%;
+        min-width: unset;
+    }
+    
+    .footer-contact h3, .footer-social h3 {
+        margin: 0 auto 15px;
+        width: fit-content; 
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes específicos para garantir que os links caibam */
+    .nav-links {
+        /* Se os links não couberem na mesma linha do logo: */
+        flex-basis: 100%; /* Ocupa a linha inteira */
+        justify-content: center; /* Centraliza os links abaixo do logo */
+        margin-top: 10px; /* Adiciona um pequeno espaço entre logo e links */
+    }
+    
+    .product-card {
+        width: 100%; /* 1 card por linha em mobile */
+        min-width: unset;
+    }
+    
+    .nav-links a {
+        font-size: 0.9em; /* Reduz a fonte para caber */
+        padding: 5px;
+    }
+}

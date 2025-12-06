@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet dos Príncipes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div id="imgdiv">
+        <img src="./WEBP/cachorro.webp" alt="">
+        <img src="./WEBP/nome2.webp" alt="" style="width: 200px;">
+         <img src="./WEBP/gato.webp" alt="" style="width: 80px;">
+        </div>
+    </header>
+   <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#produtos">Galeria</a></li>
+                <li><a href="#contato">Contatos</a></li>
+            </ul>
+           
+        </nav>
+    <main>
+        <section id="inicio" class="hero-section">
+            <div class="hero-image-container">
+                <img src="./WEBP/main1.webp" alt="Bem-vindo ao Pet dos Príncipes">
+            </div>
+        </section>
+
+
+       <section id="">
+
+       </section>
+
+
+       <section id="produtos1" class="products-section1">
+            
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <div class="carousel">
+                        <img src="./WEBP/carro1.webp" alt="Ração Premium - Imagem 1" class="carousel-slide">
+                        <img src="./WEBP/carro2.webp" alt="Ração Premium - Imagem 2" class="carousel-slide"> 
+                        <img src="./WEBP/carro3.webp" alt="Ração Premium - Imagem 3" class="carousel-slide">
+                        <img src="./WEBP/carro4.webp" alt="Ração Premium - Imagem 4" class="carousel-slide">
+                    </div>
+                    <h3 style="margin-top: -40px;">Oferecemos serviços completos </h3>
+                    <p style="text-align: center;">e proporcione o melhor cuidado para seu pet!</p>
+                </div>
+
+                <div class="product-card">
+                  <img src="./WEBP/logo 3d.webp" alt="">
+                   <h3 style="margin-top: -10px;">Seu pet merece o melhor!</h3>
+                    <p style="text-align: center;">11 98802-4158 - 11 3761-1236</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="carousel">
+                        <img src="./WEBP/carro4.webp" alt="Brinquedo Interativo - Imagem 1" class="carousel-slide">
+                        <img src="./WEBP/carro3.webp"alt="Brinquedo Interativo - Imagem 2" class="carousel-slide"> 
+                        <img src="./WEBP/carro2.webp" alt="Brinquedo Interativo - Imagem 3" class="carousel-slide">
+                         <img src="./WEBP/carro1.webp" alt="Brinquedo Interativo - Imagem 4" class="carousel-slide">
+                    </div>
+                  <h3 style="margin-top: -40px;">Agende agora</h3>
+                    <p style="text-align: center;">Para deixar seu amigo de quatro patas ainda mais saudável e feliz</p>
+                </div>
+            </div>
+        </section>
+                </div>
+          
+               
+        </section>
+
+        <section id="produtos" class="products-section">
+            <h2>Nossa galeria</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="./WEBP/DOG1.webp" alt="foto cachorro">
+                    
+                </div>
+                <div class="product-card">
+                    <img src="./WEBP/DOG2.webp" alt="foto cachorro">
+                    
+                </div>
+                <div class="product-card">
+                    <img src="./WEBP/cachorro1.webp" alt="foto cachorro">
+                    
+                </div>
+                <div class="product-card">
+                    <img src="./WEBP/DOG5.webp" alt="foto cachorro">
+                   
+                </div>
+               
+        </section>
+    </main>
+     
+
+
+    <footer id="contato" class="footer">
+        <div class="footer-content">
+            <div class="footer-contact">
+                <h3>Entre em Contato</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Rua Frederico Bacchin Neto, 140 - Loja C12 - Parque dos Príncipes, São Paulo, Brazil 05396100</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: 11 98802-4158</p>
+            </div>
+            <div class="footer-social">
+                <h3>Nossas Redes</h3>
+                <a href="https://www.instagram.com/petdosprincipes/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/PetDosPrincipes/#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Pet dos Príncipes. Seu pet merece o melhor!</p>
+        </div>
+    </footer>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona todos os contêineres de carrossel dentro da seção de produtos 1
+            const carousels = document.querySelectorAll('#produtos1 .carousel');
+            
+            // Loop para inicializar cada carrossel individualmente
+            carousels.forEach((carousel, index) => {
+                let slides = carousel.querySelectorAll('.carousel-slide');
+                let slideIndex = 0;
+                
+                // Função para mostrar o slide atual
+                function showSlide() {
+                    // Oculta todos os slides
+                    slides.forEach(slide => {
+                        slide.classList.remove('active');
+                    });
+                    
+                    // Incrementa o índice. Se passar do final, volta para o primeiro (loop)
+                    slideIndex++;
+                    if (slideIndex > slides.length) {
+                        slideIndex = 1;
+                    }
+                    
+                    // Mostra o slide atual (slideIndex - 1 pois arrays começam em 0)
+                    slides[slideIndex - 1].classList.add('active');
+                }
+
+                // Inicializa o primeiro slide como ativo
+                slides[0].classList.add('active');
+
+                // Inicia a troca automática dos slides a cada 4000 milissegundos (4 segundos)
+                // Usamos 4000 para que a troca comece após os primeiros 4s
+                setInterval(showSlide, 4000);
+            });
+        });
+    </script>
+</body>
+</html>
