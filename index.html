@@ -34,7 +34,7 @@
         .reportagem-item { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; padding: 5px; border-bottom: 1px solid #f0f0f0; }
         .reportagem-item.reverse { flex-direction: row-reverse; }
         
-        .report-carousel { flex: 0 0 220px; height: 140px; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .report-carousel { flex: 0 0 220px; height: 140px; position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; }
         .carousel-container { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
         .carousel-container img { width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; object-position: center 50%;}
 
@@ -47,10 +47,10 @@
         .report-text p { font-size: 0.85rem; line-height: 1.3; color: #444; margin: 0; }
 
         /* LOJA E BANNERS */
-        .banner-promo { width: 100%; margin: 20px 0; display: block; border-radius: 8px; }
+        .banner-promo { width: 100%; margin: 20px 0; display: block; border-radius: 8px; cursor: pointer; }
         .produtos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0; }
         .product-card { background: #f5f5f5; border-radius: 15px; padding: 15px; text-align: left; display: flex; flex-direction: column; }
-        .product-card img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 15px; }
+        .product-card img { width: 100%; height: 150px; object-fit: contain; margin-bottom: 15px; cursor: pointer; }
         .product-card h4 { font-size: 0.85rem; color: #1a4a7a; margin: 10px 0; height: 40px; overflow: hidden; }
         .product-card .price { font-size: 1.1rem; color: #000; font-weight: bold; margin-bottom: 15px; }
 
@@ -69,12 +69,19 @@
 
         /* GALERIA */
         .galeria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 40px 0; }
-        .galeria img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; }
+        .galeria img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 5px; cursor: pointer; }
 
         /* RODAPÉ */
         footer { background-color: #333; color: white; padding: 40px 20px; text-align: center; }
         .footer-social { margin: 20px 0; font-size: 2rem; }
         .footer-social a { color: #fff; margin: 0 15px; }
+
+        /* POPUP / LIGHTBOX */
+        .lightbox-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; justify-content: center; align-items: center; }
+        .lightbox-content { position: relative; background: white; border-radius: 15px; padding: 20px; max-width: 90%; max-height: 90%; overflow-y: auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .lightbox-content img { max-width: 100%; border-radius: 10px; }
+        .close-lightbox { position: absolute; top: 10px; right: 15px; font-size: 30px; cursor: pointer; color: #333; z-index: 10002; }
+        .lightbox-content .report-carousel { flex: none; width: 100%; height: 300px; max-width: 500px; }
 
         /* RESPONSIVO MOBILE */
         @media (max-width: 600px) {
@@ -89,6 +96,13 @@
     </style>
 </head>
 <body>
+
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
+            <div id="lightbox-body"></div>
+        </div>
+    </div>
 
     <div class="wp-container">
         <div class="wp-box" id="wpBox">
@@ -120,14 +134,13 @@
     <main class="main-content">
         
         <section class="reportagem-item">
-            <div class="report-carousel" data-index="0">
-                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+            <div class="report-carousel" onclick="openPopupReport(this)">
+                <button class="prev" onclick="moveSlide(this, -1); event.stopPropagation()">&#10094;</button>
                 <div class="carousel-container">
                     <img src="./galeria/31.webp">
                     <img src="./galeria/32.webp">
-                    
                 </div>
-                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+                <button class="next" onclick="moveSlide(this, 1); event.stopPropagation()">&#10095;</button>
             </div>
             <div class="report-text">
                 <h2>Título da Reportagem 1</h2>
@@ -140,24 +153,24 @@
                 <h2>Título da Reportagem 2</h2>
                 <p>Neste espaço é para colocar a reportagem, ou notícia, ou procedimentos feitos.</p>
             </div>
-            <div class="report-carousel" data-index="0">
-                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+            <div class="report-carousel" onclick="openPopupReport(this)">
+                <button class="prev" onclick="moveSlide(this, -1); event.stopPropagation()">&#10094;</button>
                 <div class="carousel-container">
                     <img src="./galeria/63.webp">
                     <img src="./galeria/62.webp">
                 </div>
-                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+                <button class="next" onclick="moveSlide(this, 1); event.stopPropagation()">&#10095;</button>
             </div>
         </section>
 
         <section class="reportagem-item">
-            <div class="report-carousel" data-index="0">
-                <button class="prev" onclick="moveSlide(this, -1)">&#10094;</button>
+            <div class="report-carousel" onclick="openPopupReport(this)">
+                <button class="prev" onclick="moveSlide(this, -1); event.stopPropagation()">&#10094;</button>
                 <div class="carousel-container">
                     <img src="./galeria/42.webp">
                     <img src="./galeria/41.webp">
                 </div>
-                <button class="next" onclick="moveSlide(this, 1)">&#10095;</button>
+                <button class="next" onclick="moveSlide(this, 1); event.stopPropagation()">&#10095;</button>
             </div>
             <div class="report-text">
                 <h2>Título da Reportagem 3</h2>
@@ -166,86 +179,82 @@
         </section>
 
         <div id="loja">
-            <img src="./WEBP/img banner.png" class="banner-promo">
+            <img src="./WEBP/img banner.png" class="banner-promo" onclick="openPopupImg(this.src)">
             <div class="produtos-grid">
-                
                 <div class="product-card">
-                    <img src="./WEBP/carro2.webp">
+                    <img src="./WEBP/carro2.webp" onclick="openPopupImg(this.src)">
                     <h4>Alcon Club Reptolife 1Kg</h4>
                     <span class="price">R$ 244,90</span>
                     <a href="https://wa.me/5511988024158?text=Olá! Vi no site o produto Alcon Club Reptolife 1Kg por R$ 244,90 e gostaria de comprar." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
                 </div>
                 <div class="product-card">
-                    <img src="./WEBP/carro3.webp">
+                    <img src="./WEBP/carro3.webp" onclick="openPopupImg(this.src)">
                     <h4>Kit Tesouras Profissional Pet</h4>
                     <span class="price">R$ 646,00</span>
                     <a href="https://wa.me/5511988024158?text=Olá! Vi no site o produto Kit Tesouras Profissional Pet por R$ 646,00 e gostaria de comprar." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
                 </div>
                 <div class="product-card">
-                    <img src="./WEBP/carro4.webp">
+                    <img src="./WEBP/carro4.webp" onclick="openPopupImg(this.src)">
                     <h4>Kit 2 Potes Truly Sortido Petiscos</h4>
                     <span class="price">R$ 309,90</span>
                     <a href="https://wa.me/5511988024158?text=Olá! Vi no site o produto Kit 2 Potes Truly Sortido Petiscos por R$ 309,90 e gostaria de comprar." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-                   
                 </div>
                 <div class="product-card">
-                    <img src="./WEBP/carro4.webp">
+                    <img src="./WEBP/carro4.webp" onclick="openPopupImg(this.src)">
                     <h4>Kit 2 Potes Truly Sortido Petiscos</h4>
                     <span class="price">R$ 309,90</span>
                     <a href="https://wa.me/5511988024158?text=Olá! Vi no site o produto Kit 2 Potes Truly Sortido Petiscos por R$ 309,90 e gostaria de comprar." target="_blank" class="btn-buy"><i class="fab fa-whatsapp"></i> Comprar</a>
-
-                    
                 </div>
             </div>
-            <img src="./WEBP/main1.webp" class="banner-promo">
+            <img src="./WEBP/main1.webp" class="banner-promo" onclick="openPopupImg(this.src)">
         </div>
 
         <h2 id="galeria" style="text-align:center;">Nossa Galeria</h2>
         <section class="galeria">
-            <img src="./WEBP/DOG1.webp">
-            <img src="./WEBP/DOG2.webp">
-            <img src="./WEBP/cachorro1.webp">
-            <img src="./WEBP/DOG5.webp">
-            <img src="./WEBP/DOG1.webp">
-            <img src="./WEBP/DOG2.webp">
-            <img src="./WEBP/cachorro1.webp">
-            <img src="./WEBP/DOG5.webp">
-            <img src="./galeria/1.webp">
-            <img src="./galeria/2.webp">
-            <img src="./galeria/3.webp">
-            <img src="./galeria/11.webp">
-            <img src="./galeria/12.webp">
-            <img src="./galeria/13.webp">
-            <img src="./galeria/21.webp">
-            <img src="./galeria/22.webp">
-            <img src="./galeria/23.webp">
-            <img src="./galeria/31.webp">
-            <img src="./galeria/32.webp">
-            <img src="./galeria/33.webp">
-            <img src="./galeria/41.webp">
-            <img src="./galeria/42.webp">
-            <img src="./galeria/43.webp">
-            <img src="./galeria/51.webp">
-            <img src="./galeria/52.webp">
-            <img src="./galeria/53.webp">
-            <img src="./galeria/61.webp">
-            <img src="./galeria/62.webp">
-            <img src="./galeria/63.webp">
-            <img src="./galeria/71.webp">
-            <img src="./galeria/72.webp">
-            <img src="./galeria/73.webp">
-            <img src="./galeria/81.webp">
-            <img src="./galeria/82.webp">
-            <img src="./galeria/83.webp">
-            <img src="./galeria/91.webp">
-            <img src="./galeria/92.webp">
-            <img src="./galeria/93.webp">
-            <img src="./galeria/100.webp">
-            <img src="./galeria/101.webp">
-            <img src="./galeria/g1.webp">
-            <img src="./galeria/g2.webp">
-            <img src="./galeria/g3.webp">
-                       <img src="./galeria/g5.webp">
+            <img src="./WEBP/DOG1.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/DOG2.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/cachorro1.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/DOG5.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/DOG1.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/DOG2.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/cachorro1.webp" onclick="openPopupImg(this.src)">
+            <img src="./WEBP/DOG5.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/1.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/2.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/3.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/11.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/12.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/13.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/21.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/22.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/23.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/31.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/32.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/33.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/41.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/42.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/43.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/51.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/52.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/53.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/61.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/62.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/63.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/71.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/72.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/73.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/81.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/82.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/83.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/91.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/92.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/93.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/100.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/101.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/g1.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/g2.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/g3.webp" onclick="openPopupImg(this.src)">
+            <img src="./galeria/g5.webp" onclick="openPopupImg(this.src)">
         </section>
     </main>
 
@@ -261,24 +270,58 @@
     </footer>
 
     <script>
+        // Funções Originais
         function moveSlide(button, step) {
             const carousel = button.parentElement;
             const container = carousel.querySelector('.carousel-container');
-            const totalSlides = container.querySelectorAll('img').length;
+            const imgs = container.querySelectorAll('img');
+            const totalSlides = imgs.length;
             let currentIndex = parseInt(carousel.getAttribute('data-index')) || 0;
             currentIndex = (currentIndex + step + totalSlides) % totalSlides;
             carousel.setAttribute('data-index', currentIndex);
             container.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
+
         function toggleWpBox() {
             const box = document.getElementById('wpBox');
             box.style.display = (box.style.display === 'block') ? 'none' : 'block';
         }
+
         function sendToWhatsapp() {
             const msg = document.getElementById('wpMsg').value;
             if(msg.trim() !== "") {
                 window.open(`https://wa.me/5511988024158?text=${encodeURIComponent(msg)}`, '_blank');
             }
+        }
+
+        // Funções de Popup (Inclusões Solicitadas)
+        function openPopupImg(src) {
+            const body = document.getElementById('lightbox-body');
+            body.innerHTML = `<img src="${src}" style="max-height:80vh">`;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function openPopupReport(carouselDiv) {
+            const body = document.getElementById('lightbox-body');
+            const reportItem = carouselDiv.closest('.reportagem-item');
+            const title = reportItem.querySelector('h2').innerText;
+            const text = reportItem.querySelector('p').innerText;
+            
+            // Clonar o carrossel para o popup
+            const carouselClone = carouselDiv.cloneNode(true);
+            carouselClone.style.flex = "none";
+            carouselClone.style.width = "100%";
+            carouselClone.style.height = "300px";
+
+            body.innerHTML = '';
+            body.appendChild(carouselClone);
+            body.innerHTML += `<div style="margin-top:15px"><h2>${title}</h2><p>${text}</p></div>`;
+            
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox(e) {
+            document.getElementById('lightbox').style.display = 'none';
         }
     </script>
 </body>
